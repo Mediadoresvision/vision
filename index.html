@@ -9,10 +9,11 @@
 </head>
 <body>
 
-    <!-- 🔐 TELA DE LOGIN -->
+    <!-- 🔐 TELA DE LOGIN CORRIGIDA COM TRAVA INDEPENDENTE -->
     <div id="tela-login" class="login-container">
         <div class="login-box">
-            <img id="login-logo" src="./logo.jpeg" alt="Logo">
+            <!-- 🔥 Trava definitiva de tamanho direto na tag para não estourar -->
+            <img id="login-logo" src="./logo.jpeg" alt="Logo" style="width: 100px !important; height: 100px !important; border-radius: 12px; margin-bottom: 15px; border: 2px solid #007bff; object-fit: cover;">
             <h2>Mediadores Vision</h2>
             <p>Faça login para acessar o painel</p>
             <div class="tab-botoes">
@@ -32,7 +33,7 @@
         
         <header class="barra-topo">
             <div class="topo-esquerda">
-                <img src="./logo.jpeg" class="header-logo" style="width:35px; height:35px; border-radius:50%; vertical-align:middle; margin-right:10px; border:1px solid #007bff;" alt="Logo">
+                <img src="./logo.jpeg" class="header-logo" style="width:35px !important; height:35px !important; border-radius:50%; vertical-align:middle; margin-right:10px; border:1px solid #007bff; object-fit: cover;" alt="Logo">
                 <h2 style="display:inline-block; vertical-align:middle;">Mediadores Vision</h2>
             </div>
             <div class="topo-direita">
@@ -56,7 +57,7 @@
                 <div class="container-interno">
                     
                     <div class="card-apresentacao">
-                        <img src="./banner.jpeg" class="banner-img" alt="Banner">
+                        <img src="./banner.jpeg" class="banner-img" style="width: 80px !important; height: 80px !important; border-radius: 8px; object-fit: cover; border: 1px solid #007bff;" alt="Banner">
                         <div class="apresentacao-texto">
                             <h3>Painel de Controle</h3>
                             <p>Gerencie seus lucros com profissionalismo</p>
