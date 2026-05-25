@@ -21,7 +21,31 @@ document.addEventListener("DOMContentLoaded", () => {
     
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
+
+    // 🔒 Fecha o menu de três pontinhos se clicar em qualquer outro lugar da tela
+    window.addEventListener('click', (e) => {
+        if (!e.target.matches('.btn-dropdown-gatilho')) {
+            const dropdown = document.getElementById('dropdown-menu');
+            if (dropdown && dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            }
+        }
+    });
 });
+
+// 🔀 FUNÇÃO QUE ABRE E FECHA OS TRÊS PONTINHOS (IGUAL À FOTO)
+function alternarDropdown() {
+    const dropdown = document.getElementById('dropdown-menu');
+    if (dropdown) {
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+}
+
+// 📝 AÇÃO DE ABRIR O HISTÓRICO/MODAL DIRETO PELO NOVO MENU
+function abrirModalPorMenu() {
+    alternarDropdown();
+    navegarPara('tela-dashboard');
+}
 
 function mudarTabLogin(modo) {
     modoAutenticacao = modo;
@@ -82,9 +106,12 @@ function navegarPara(idTela) {
     const telaEl = document.getElementById(idTela);
     if(telaEl) telaEl.style.display = 'block';
     
-    document.querySelectorAll('.menu-items button').forEach(btn => btn.classList.remove('active'));
-    const navBtn = document.getElementById('nav-' + idTela);
-    if (navBtn) navBtn.classList.add('active');
+    // Atualiza a marcação ativa dentro da caixinha flutuante
+    document.querySelectorAll('.dropdown-menu-box button').forEach(btn => btn.classList.remove('active'));
+    
+    // Fecha o menu após clicar
+    const dropdown = document.getElementById('dropdown-menu');
+    if (dropdown) dropdown.style.display = 'none';
     
     if (idTela === 'tela-dashboard') {
         setTimeout(inicializarGrafico, 100);
