@@ -3,6 +3,7 @@ let lucroDiarioHoje = parseFloat(localStorage.getItem('lucroDiarioHoje')) || 0;
 let historico = JSON.parse(localStorage.getItem('historicoLucros')) || [];
 let modoAutenticacao = 'login';
 let meuGrafico;
+let diaAtualSelecionado = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem('usuarioLogado')) {
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarInterface();
     }
     
+    // Roda o relógio de forma segura após carregar a interface
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 
@@ -107,7 +109,6 @@ function navegarPara(idTela) {
     if (dropdown) dropdown.style.display = 'none';
     
     if (idTela === 'tela-dashboard') {
-        // Inicializa o gráfico apenas sob demanda instantânea para carregar mais rápido
         setTimeout(inicializarGrafico, 50);
     }
 }
@@ -121,12 +122,13 @@ function atualizarRelogio() {
     const elHora = document.getElementById('horaAtual');
     const elTempo = document.getElementById('tempoRestante');
 
+    // Só atualiza os elementos se eles realmente existirem abertos na tela atual
     if(elDia) elDia.innerText = dias[agora.getDay()];
     if(elData) elData.innerText = agora.toLocaleDateString('pt-BR');
     if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR');
     
     if(elTempo) {
-        const totalSegundosNoDia = 24 * 60 * 60;
+        const totalSegundosNoDia = 86400;
         const segundosPassados = (agora.getHours() * 3600) + (agora.getMinutes() * 60) + agora.getSeconds();
         const segundosRestantes = totalSegundosNoDia - segundosPassados;
         
@@ -171,6 +173,7 @@ function inicializarGrafico() {
 
 function adicionarLucroRapido() {
     const input = document.getElementById('valorInput');
+    if (!input) return;
     const valor = parseFloat(input.value);
 
     if (isNaN(valor) || valor <= 0) {
@@ -217,7 +220,9 @@ function fecharModal() {
 }
 
 function salvarLucroModal() {
-    const valor = parseFloat(document.getElementById('modalInput').value) || 0;
+    const input = document.getElementById('modalInput');
+    if (!input) return;
+    const valor = parseFloat(input.value) || 0;
     lucros[diaAtualSelecionado] = valor;
     varEReceber();
     fecharModal();
@@ -262,17 +267,10 @@ function atualizarInterface() {
         }
     }
 
-    if (meuGrafico) {
-        meuGrafico.data.datasets.data = lucros;
+    if (meuGrafico && meuGrafico.data && meuGrafico.data.datasets[0]) {
+        meuGrafico.data.datasets[0].data = lucros;
         meuGrafico.update();
     }
 }
 
 function zerarDados() {
-    if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
-        lucros = [0, 0, 0, 0, 0, 0, 0];
-        lucroDiarioHoje = 0;
-        historico = [];
-        varEReceber();
-    }
-}
