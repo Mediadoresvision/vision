@@ -19,8 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarInterface();
     }
     
+    // Atualiza o relógio a cada 30 segundos (muito mais leve que a cada 1 segundo)
     atualizarRelogio();
-    setInterval(atualizarRelogio, 1000);
+    setInterval(atualizarRelogio, 30000);
 
     window.addEventListener('click', (e) => {
         if (!e.target.matches('.btn-dropdown-gatilho')) {
@@ -123,18 +124,19 @@ function atualizarRelogio() {
 
     if(elDia) elDia.innerText = dias[agora.getDay()];
     if(elData) elData.innerText = agora.toLocaleDateString('pt-BR');
-    if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR');
+    
+    // Mostra apenas Hora e Minuto (Ex: 19:23)
+    if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     
     if(elTempo) {
-        const totalSegundosNoDia = 86400;
-        const segundosPassados = (agora.getHours() * 3600) + (agora.getMinutes() * 60) + agora.getSeconds();
-        const segundosRestantes = totalSegundosNoDia - segundosPassados;
+        const totalMinutosNoDia = 1440;
+        const minutosPassados = (agora.getHours() * 60) + agora.getMinutes();
+        const minutosRestantes = totalMinutosNoDia - minutosPassados;
         
-        const hrs = Math.floor(segundosRestantes / 3600);
-        const mins = Math.floor((segundosRestantes % 3600) / 60);
-        const segs = segundosRestantes % 60;
+        const hrs = Math.floor(minutosRestantes / 60);
+        const mins = minutosRestantes % 60;
         
-        elTempo.innerText = `Faltam ${hrs}h ${mins}min ${segs}s para encerrar o dia`;
+        elTempo.innerText = `Faltam ${hrs}h ${mins}min para encerrar o dia`;
     }
 }
 
@@ -187,7 +189,8 @@ function adicionarLucroRapido() {
 
     lucros[layoutIndex] += valor;
 
-    const horaFormatada = new Date().toLocaleTimeString('pt-BR');
+    // Histórico registra sem os segundos também
+    const horaFormatada = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     historico.unshift({ valor: valor, hora: horaFormatada });
 
     varEReceber();
@@ -266,13 +269,9 @@ function atualizarInterface() {
     }
 
     if (meuGrafico && meuGrafico.data && meuGrafico.data.datasets) {
-        meuGrafico.data.datasets[0].data = lucros;
+        meuGrafico.data.datasets.data = lucros;
         meuGrafico.update();
     }
 }
 
 function zerarDados() {
-    if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
-        lucros = [0, 0, 0, 0, 0, 0, 0];
-        lucroDiarioHoje = 0;
-        historico = [];
