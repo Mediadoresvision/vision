@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
         inicializarGrafico();
         atualizarInterface();
     }
+    
+    // Inicializa o relógio na hora e atualiza firme a cada segundo
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 });
@@ -66,7 +68,13 @@ function navegarPara(idTela) {
     document.querySelectorAll('.aba-conteudo').forEach(tela => tela.style.display = 'none');
     document.getElementById(idTela).style.display = 'block';
     document.querySelectorAll('.menu-items button').forEach(btn => btn.classList.remove('active'));
-    document.getElementById('nav-' + idTela).classList.add('active');
+    
+    const navBtn = document.getElementById('nav-' + idTela);
+    if (navBtn) navBtn.classList.add('active');
+    
+    if (idTela === 'tela-dashboard') {
+        setTimeout(inicializarGrafico, 100);
+    }
 }
 
 function atualizarRelogio() {
@@ -78,11 +86,11 @@ function atualizarRelogio() {
     const elHora = document.getElementById('horaAtual');
     const elTempo = document.getElementById('tempoRestante');
 
-    if(elDia && elData && elHora && elTempo) {
-        elDia.innerText = dias[agora.getDay()];
-        elData.innerText = agora.toLocaleDateString('pt-BR');
-        elHora.innerText = agora.toLocaleTimeString('pt-BR');
-        
+    if(elDia) elDia.innerText = dias[agora.getDay()];
+    if(elData) elData.innerText = agora.toLocaleDateString('pt-BR');
+    if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR');
+    
+    if(elTempo) {
         const totalSegundosNoDia = 24 * 60 * 60;
         const segundosPassados = (agora.getHours() * 3600) + (agora.getMinutes() * 60) + agora.getSeconds();
         const segundosRestantes = totalSegundosNoDia - segundosPassados;
@@ -135,6 +143,7 @@ function adicionarLucroRapido() {
     }
 
     lucroDiarioHoje += valor;
+    
     const diaDaSemanaIndex = new Date().getDay(); 
     let layoutIndex = diaDaSemanaIndex - 2;
     if (layoutIndex < 0) layoutIndex += 7;
