@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarInterface();
     }
     
-    // Atualiza o relógio a cada 30 segundos (muito mais leve que a cada 1 segundo)
+    // Atualiza o relógio a cada 30 segundos (muito mais leve para evitar lag)
     atualizarRelogio();
     setInterval(atualizarRelogio, 30000);
 
@@ -189,7 +189,6 @@ function adicionarLucroRapido() {
 
     lucros[layoutIndex] += valor;
 
-    // Histórico registra sem os segundos também
     const horaFormatada = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     historico.unshift({ valor: valor, hora: horaFormatada });
 
@@ -275,3 +274,4 @@ function atualizarInterface() {
 }
 
 function zerarDados() {
+    if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
