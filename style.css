@@ -9,7 +9,6 @@ body {
 /* 🔐 TELA DE LOGIN */
 .login-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #0d0d0d; }
 .login-box { background-color: #1a1a1a; padding: 40px; border-radius: 12px; border: 1px solid #007bff; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); }
-#login-logo { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px; border: 2px solid #007bff; object-fit: cover; }
 .login-box h2 { margin: 0 0 5px 0; color: #fff; }
 .login-box p { color: #888; margin: 0 0 20px 0; font-size: 14px; }
 .tab-botoes { display: flex; gap: 10px; margin-bottom: 20px; background: #121212; padding: 4px; border-radius: 8px; border: 1px solid #2d2d2d; }
@@ -18,95 +17,116 @@ body {
 .login-box input { width: 100%; padding: 12px; background: #121212; border: 1px solid #2d2d2d; color: white; border-radius: 6px; margin-bottom: 15px; box-sizing: border-box; }
 #btn-entrar { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-/* 🌐 LAYOUT DO SISTEMA */
-.layout-sistema { display: flex; min-height: 100vh; }
-.sidebar { width: 240px; background-color: #1a1a1a; border-right: 1px solid #2d2d2d; display: flex; flex-direction: column; padding: 20px; box-sizing: border-box; z-index: 10; }
-.sidebar-header { display: flex; align-items: center; gap: 10px; padding-bottom: 20px; border-bottom: 1px solid #2d2d2d; margin-bottom: 20px; }
-.app-logo { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 1px solid #007bff; }
-.sidebar-header h3 { margin: 0; color: #fff; }
-.menu-items { display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.menu-items button { text-align: left; padding: 12px; background: transparent; border: none; color: #aaa; border-radius: 6px; cursor: pointer; font-size: 15px; }
-.menu-items button:hover, .menu-items button.active { background-color: #242424; color: #007bff; font-weight: bold; }
-.sidebar-footer { padding-top: 15px; border-top: 1px solid #2d2d2d; display: flex; flex-direction: column; gap: 10px; }
-.user-tag { background: #242424; padding: 8px; border-radius: 6px; text-align: center; font-size: 13px; font-weight: bold; color: #007bff; }
-.btn-sair { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-
-/* 📺 CONTEÚDO PRINCIPAL COM TUBARÃO SUAVE ATRÁS EM MARCA D'ÁGUA */
-.conteudo-principal { 
-    flex: 1; 
-    padding: 35px; 
-    box-sizing: border-box; 
-    background-color: #121212;
-    background-image: linear-gradient(rgba(18, 18, 18, 0.95), rgba(18, 18, 18, 0.95)), url('https://freepik.com');
-    background-size: 420px;
-    background-repeat: no-repeat;
-    background-position: center 35%;
-    background-attachment: fixed;
-    display: flex; 
-    justify-content: center; 
-    overflow-y: auto; 
+/* 🌐 LAYOUT DO SISTEMA E BARRA SUPERIOR */
+.layout-sistema { display: flex; flex-direction: column; min-height: 100vh; }
+.barra-topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #141414;
+    padding: 15px 30px;
+    border-bottom: 1px solid #2d2d2d;
+    box-sizing: border-box;
 }
+.topo-esquerda h2 { margin: 0; color: #fff; font-size: 20px; font-weight: bold; }
+.topo-direita { display: flex; align-items: center; gap: 15px; position: relative; }
+.user-display { color: #fff; font-weight: bold; font-size: 14px; letter-spacing: 0.5px; }
+
+/* 🛠️ DESIGN DO MENU GATILHO (BOTÃO DE TRÊS PONTINHOS) */
+.dropdown-container { position: relative; display: inline-block; }
+.btn-dropdown-gatilho {
+    background: #262626;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.btn-dropdown-gatilho:hover { background: #363636; }
+
+/* 📦 CAIXINHA FLUTUANTE EXATAMENTE IGUAL À SUA FOTO (BORDA VERMELHA ARREDONDADA) */
+.dropdown-menu-box {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    background-color: #141414;
+    width: 180px;
+    border: 1px solid #ef4444; /* Borda vermelha igual à foto */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    z-index: 1000;
+    overflow: hidden;
+    padding: 4px 0;
+}
+.dropdown-menu-box button {
+    width: 100%;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    color: #e0e0e0;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.15s;
+}
+.dropdown-menu-box button:hover {
+    background-color: #222;
+    color: #007bff;
+}
+.dropdown-menu-box button.active {
+    background-color: #1a1a1a;
+    color: #007bff;
+    font-weight: bold;
+}
+.dropdown-divisor {
+    border: 0;
+    height: 1px;
+    background-color: #2d2d2d; /* Linha divisória fina */
+    margin: 4px 0;
+}
+.btn-dropdown-sair { color: #ef4444 !important; } /* Item sair em vermelho igual à foto */
+.btn-dropdown-sair:hover { background-color: rgba(239, 68, 68, 0.1) !important; }
+
+/* 📺 CONTEÚDO PRINCIPAL TOTALMENTE EXPANDIDO */
+.conteudo-principal-full { flex: 1; padding: 35px 20px; box-sizing: border-box; background-color: #0c0c0c; display: flex; justify-content: center; overflow-y: auto; }
 .container-interno { width: 100%; max-width: 900px; }
 
-.topo-sistema { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; border-bottom: 1px solid #2d2d2d; padding-bottom: 15px; }
-.header-logo { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #007bff; }
-.topo-sistema h2 { margin: 0; color: #fff; font-size: 22px; }
-
-.card-apresentacao { background: #1a1a1a; border-radius: 12px; padding: 15px; display: flex; align-items: center; gap: 15px; margin-bottom: 25px; border: 1px solid #2d2d2d; }
-.banner-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; border: 1px solid #007bff; }
+.card-apresentacao { background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid #2d2d2d; }
 .apresentacao-texto h3 { margin: 0 0 5px 0; color: #fff; font-size: 18px; }
 .apresentacao-texto p { margin: 0; color: #888; font-size: 14px; }
 
-/* 📈 DESIGN IGUAL AO SEU MODELO: 3 COLUNAS ALINHADAS PARALELAS */
-.grid-resumo-vertical { 
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 15px; 
-    margin-bottom: 15px; 
-}
-.grid-resumo-vertical-hora {
-    display: block;
-    margin-bottom: 20px;
-}
+/* 📈 3 COLUNAS ALINHADAS HORIZONTAIS PARALELAS */
+.grid-resumo-vertical { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px; }
+.grid-resumo-vertical-hora { display: block; margin-bottom: 25px; }
 .card-resumo-item { background-color: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #2d2d2d; position: relative; }
 .card-resumo-item.destaque-azul { border-color: #007bff; background-color: #16222f; }
 .card-resumo-item-hora { background-color: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #2d2d2d; position: relative; width: 100%; box-sizing: border-box; }
 
-/* Ícone quadrado vermelho no topo esquerdo do bloco igual ao modelo enviado */
-.card-icon, .card-icon-hora { 
-    font-size: 14px; 
-    background: #ef4444; 
-    color: white;
-    padding: 6px; 
-    border-radius: 6px; 
-    width: 16px; 
-    height: 16px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    margin-bottom: 15px;
-}
-
+.card-icon, .card-icon-hora { font-size: 14px; background: #ef4444; color: white; padding: 6px; border-radius: 6px; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; }
 .card-resumo-item p, .card-resumo-item-hora p { margin: 0 0 8px 0; font-size: 11px; color: #888; font-weight: bold; letter-spacing: 0.5px; }
 .card-resumo-item h3, .card-resumo-item-hora h3 { margin: 0; font-size: 26px; color: #fff; font-weight: bold; }
 .subtext-data { display: block; font-size: 11px; color: #007bff; margin-top: 4px; }
 
 /* ➕ ENTRADA DE LUCRO */
-.secao-acao-input { margin-bottom: 20px; }
-.secao-acao-input h4 { margin: 0 0 10px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
-.input-container-icon { display: flex; align-items: center; background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 6px; padding-left: 12px; margin-bottom: 10px; }
+.secao-acao-input { background-color: #1a1a1a; padding: 25px; border-radius: 12px; border: 1px solid #2d2d2d; margin-bottom: 20px; }
+.secao-acao-input h4 { margin: 0 0 15px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
+.input-container-icon { display: flex; align-items: center; background: #0c0c0c; border: 1px solid #2d2d2d; border-radius: 6px; padding-left: 12px; margin-bottom: 15px; }
 .cifrao { color: #ef4444; font-weight: bold; font-size: 14px; margin-right: 8px; }
 .input-container-icon input { flex: 1; padding: 12px; background: transparent; border: none; color: white; font-size: 14px; outline: none; }
 .btn-adicionar-principal { width: 100%; padding: 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
 .btn-adicionar-principal:hover { background-color: #b91c1c; }
 
-/* 🔄 SEÇÃO AÇÕES RÁPIDAS EMPILHADAS (IGUAL AO SEU MODELO) */
+/* 🔄 BOTÃO ZERAR */
 .secao-acoes-extras { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
 .secao-acoes-extras h4 { margin: 0 0 5px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
 .btn-extra-zerar { width: 100%; padding: 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
-.btn-extra-zerar:hover { background-color: #b91c1c; }
-.btn-extra-editar { width: 100%; padding: 12px; background-color: #262626; color: white; border: 1px solid #444; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
-.btn-extra-editar:hover { background-color: #363636; }
 
 /* 📊 DASHBOARD */
 .grid-dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
