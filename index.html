@@ -12,7 +12,6 @@
     <!-- 🔐 TELA DE LOGIN -->
     <div id="tela-login" class="login-container">
         <div class="login-box">
-            <img id="login-logo" src="https://freepik.com" alt="Logo">
             <h2>Mediadores Vision</h2>
             <p>Faça login para acessar o painel</p>
             <div class="tab-botoes">
@@ -29,31 +28,36 @@
 
     <!-- 🌐 SISTEMA PRINCIPAL -->
     <div id="sistema-principal" class="layout-sistema" style="display: none;">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="https://freepik.com" class="app-logo" alt="Logo">
-                <h3>Vision</h3>
+        
+        <!-- 🔝 BARRA SUPERIOR COM MENU FLUTUANTE (IGUAL À FOTO) -->
+        <header class="barra-topo">
+            <div class="topo-esquerda">
+                <h2>Mediadores Vision</h2>
             </div>
-            <nav class="menu-items">
-                <button onclick="navegarPara('tela-inicio')" id="nav-tela-inicio" class="active">🏠 Início</button>
-                <button onclick="navegarPara('tela-dashboard')" id="nav-tela-dashboard">📊 Dashboard</button>
-                <button onclick="navegarPara('tela-config')" id="nav-tela-config">⚙️ Configurações</button>
-            </nav>
-            <div class="sidebar-footer">
-                <span class="user-tag" id="nome-usuario-logado">ADMDANIEL</span>
-                <button class="btn-sair" onclick="deslogar()">❌ Sair</button>
+            <div class="topo-direita">
+                <span class="user-display" id="nome-usuario-logado">ADMDANIEL</span>
+                <div class="dropdown-container">
+                    <button class="btn-dropdown-gatilho" onclick="alternarDropdown()">⋮</button>
+                    <!-- 📦 CAIXINHA FLUTUANTE DE LINKS -->
+                    <div id="dropdown-menu" class="dropdown-menu-box">
+                        <button onclick="navegarPara('tela-inicio')" class="active">🏠 Início</button>
+                        <button onclick="navegarPara('tela-dashboard')">📊 Dashboard</button>
+                        <button onclick="abrirModalPorMenu()">📝 Editar Lucros</button>
+                        <button onclick="navegarPara('tela-config')">⚙️ Configurações</button>
+                        <hr class="dropdown-divisor">
+                        <button onclick="deslogar()" class="btn-dropdown-sair">↪ Sair</button>
+                    </div>
+                </div>
             </div>
-        </aside>
+        </header>
 
-        <main class="conteudo-principal">
+        <!-- 📺 ÁREA CENTRAL DAS TELAS (SEM MENU LATERAL COLOCOU MAIS ESPAÇO) -->
+        <main class="conteudo-principal-full">
+            
+            <!-- 🏠 1. TELA INÍCIO -->
             <section id="tela-inicio" class="aba-conteudo">
                 <div class="container-interno">
-                    <header class="topo-sistema">
-                        <img src="https://freepik.com" class="header-logo" alt="Logo">
-                        <h2>Mediadores Vision</h2>
-                    </header>
                     <div class="card-apresentacao">
-                        <img src="https://freepik.com" class="banner-img" alt="Banner">
                         <div class="apresentacao-texto">
                             <h3>Painel de Controle</h3>
                             <p>Gerencie seus lucros com profissionalismo</p>
@@ -99,15 +103,14 @@
                         <button class="btn-adicionar-principal" onclick="adicionarLucroRapido()">+ Adicionar Lucro</button>
                     </div>
 
-                    <!-- 🔄 BOTÕES EXTRAS EMPILHADOS DO MODELO -->
                     <div class="secao-acoes-extras">
                         <h4>🔄 Ações Rápidas</h4>
                         <button class="btn-extra-zerar" onclick="zerarDados()">🗘 Zerar Semana</button>
-                        <button class="btn-extra-editar" onclick="navegarPara('tela-dashboard')">📝 Editar Lucros</button>
                     </div>
                 </div>
             </section>
 
+            <!-- 📊 2. TELA DASHBOARD -->
             <section id="tela-dashboard" class="aba-conteudo" style="display: none;">
                 <div class="container-interno">
                     <header class="topo-pagina">
@@ -129,6 +132,7 @@
                 </div>
             </section>
 
+            <!-- ⚙️ 3. TELA CONFIGURAÇÕES -->
             <section id="tela-config" class="aba-conteudo" style="display: none;">
                 <div class="container-interno">
                     <header class="topo-pagina">
@@ -151,6 +155,7 @@
         </main>
     </div>
 
+    <!-- Janela de Edição -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitulo">Editar Lucro</h3>
