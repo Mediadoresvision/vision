@@ -31,16 +31,16 @@ body {
 .user-tag { background: #242424; padding: 8px; border-radius: 6px; text-align: center; font-size: 13px; font-weight: bold; color: #007bff; }
 .btn-sair { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-/* 📺 FUNDO COM MARCA D'ÁGUA SUAVE (APENAS 4% DE OPACIDADE PARA NÃO EXAGERAR) */
+/* 📺 CONTEÚDO PRINCIPAL COM TUBARÃO SUAVE ATRÁS */
 .conteudo-principal { 
     flex: 1; 
     padding: 35px; 
     box-sizing: border-box; 
     background-color: #121212;
-    background-image: linear-gradient(rgba(18, 18, 18, 0.96), rgba(18, 18, 18, 0.96)), url('https://freepik.com');
-    background-size: 500px;
+    background-image: linear-gradient(rgba(18, 18, 18, 0.95), rgba(18, 18, 18, 0.95)), url('https://freepik.com');
+    background-size: 420px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center 35%;
     background-attachment: fixed;
     display: flex; 
     justify-content: center; 
@@ -57,18 +57,23 @@ body {
 .apresentacao-texto h3 { margin: 0 0 5px 0; color: #fff; font-size: 18px; }
 .apresentacao-texto p { margin: 0; color: #888; font-size: 14px; }
 
-/* 📈 DESIGN IGUAL AO MODELO: 3 COLUNAS ALINHADAS LADO A LADO */
+/* 📈 DESIGN IGUAL AO SEU MODELO: 3 COLUNAS ALINHADAS PARALELAS */
 .grid-resumo-vertical { 
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
     gap: 15px; 
-    margin-bottom: 20px; 
+    margin-bottom: 15px; 
+}
+.grid-resumo-vertical-hora {
+    display: block;
+    margin-bottom: 20px;
 }
 .card-resumo-item { background-color: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #2d2d2d; position: relative; }
 .card-resumo-item.destaque-azul { border-color: #007bff; background-color: #16222f; }
+.card-resumo-item-hora { background-color: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #2d2d2d; position: relative; width: 100%; box-sizing: border-box; }
 
-/* Ícone vermelho no topo esquerdo do bloco igual ao modelo enviado */
-.card-icon { 
+/* Ícone quadrado vermelho no topo esquerdo do bloco igual ao modelo enviado */
+.card-icon, .card-icon-hora { 
     font-size: 14px; 
     background: #ef4444; 
     color: white;
@@ -82,24 +87,26 @@ body {
     margin-bottom: 15px;
 }
 
-.card-resumo-item p { margin: 0 0 8px 0; font-size: 11px; color: #888; font-weight: bold; letter-spacing: 0.5px; }
-.card-resumo-item h3 { margin: 0; font-size: 26px; color: #fff; font-weight: bold; }
+.card-resumo-item p, .card-resumo-item-hora p { margin: 0 0 8px 0; font-size: 11px; color: #888; font-weight: bold; letter-spacing: 0.5px; }
+.card-resumo-item h3, .card-resumo-item-hora h3 { margin: 0; font-size: 26px; color: #fff; font-weight: bold; }
 .subtext-data { display: block; font-size: 11px; color: #007bff; margin-top: 4px; }
 
-/* O quarto elemento (Hora Atual) vai ocupar a linha de baixo inteira com design limpo */
-.card-resumo-item:nth-child(4) {
-    grid-column: span 3;
-}
-
 /* ➕ ENTRADA DE LUCRO */
-.secao-acao-input { margin-bottom: 25px; }
-.secao-acao-input h4 { margin: 0 0 10px 0; color: #aaa; font-size: 14px; }
-.input-container-icon { display: flex; align-items: center; background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 6px; padding-left: 12px; margin-bottom: 12px; }
+.secao-acao-input { margin-bottom: 20px; }
+.secao-acao-input h4 { margin: 0 0 10px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
+.input-container-icon { display: flex; align-items: center; background: #1a1a1a; border: 1px solid #2d2d2d; border-radius: 6px; padding-left: 12px; margin-bottom: 10px; }
 .cifrao { color: #ef4444; font-weight: bold; font-size: 14px; margin-right: 8px; }
 .input-container-icon input { flex: 1; padding: 12px; background: transparent; border: none; color: white; font-size: 14px; outline: none; }
 .btn-adicionar-principal { width: 100%; padding: 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
 .btn-adicionar-principal:hover { background-color: #b91c1c; }
-.btn-acao-secundario { width: 100%; padding: 12px; background-color: #262626; color: #ef4444; border: 1px solid #ef4444; border-radius: 6px; font-weight: bold; cursor: pointer; }
+
+/* 🔄 SEÇÃO AÇÕES RÁPIDAS EMPILHADAS (IGUAL AO SEU MODELO) */
+.secao-acoes-extras { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.secao-acoes-extras h4 { margin: 0 0 5px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
+.btn-extra-zerar { width: 100%; padding: 12px; background-color: #ef4444; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+.btn-extra-zerar:hover { background-color: #b91c1c; }
+.btn-extra-editar { width: 100%; padding: 12px; background-color: #262626; color: white; border: 1px solid #444; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
+.btn-extra-editar:hover { background-color: #363636; }
 
 /* 📊 DASHBOARD */
 .grid-dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
