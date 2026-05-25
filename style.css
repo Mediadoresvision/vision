@@ -6,10 +6,38 @@ body {
     padding: 0;
 }
 
-/* 🔐 TELA DE LOGIN */
-.login-container { display: flex; justify-content: center; align-items: center; min-height: 100vh; background-color: #0d0d0d; }
-.login-box { background-color: #1a1a1a; padding: 40px; border-radius: 12px; border: 1px solid #007bff; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); }
-.login-box h2 { margin: 0 0 5px 0; color: #fff; }
+/* 🔐 TELA DE LOGIN CORRIGIDA (SEM IMAGEM GIGANTE) */
+.login-container { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    background-color: #0d0d0d; 
+}
+.login-box { 
+    background-color: #1a1a1a; 
+    padding: 30px; 
+    border-radius: 12px; 
+    border: 1px solid #007bff; 
+    width: 100%; 
+    max-width: 360px; 
+    text-align: center; 
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.2); 
+    box-sizing: border-box;
+}
+
+/* 🔥 TRAVA DA IMAGEM: Nunca mais vai estourar a tela */
+#login-logo { 
+    width: 100px; 
+    height: 100px; 
+    border-radius: 12px; 
+    margin-bottom: 15px; 
+    border: 2px solid #007bff; 
+    object-fit: cover; 
+    display: inline-block;
+}
+
+.login-box h2 { margin: 0 0 5px 0; color: #fff; font-size: 20px; }
 .login-box p { color: #888; margin: 0 0 20px 0; font-size: 14px; }
 .tab-botoes { display: flex; gap: 10px; margin-bottom: 20px; background: #121212; padding: 4px; border-radius: 8px; border: 1px solid #2d2d2d; }
 .tab-botoes button { flex: 1; padding: 8px; background: transparent; border: none; color: #888; cursor: pointer; border-radius: 6px; font-weight: bold; }
@@ -28,7 +56,7 @@ body {
     border-bottom: 1px solid #2d2d2d;
     box-sizing: border-box;
 }
-.topo-esquerda h2 { margin: 0; color: #fff; font-size: 20px; font-weight: bold; }
+.topo-esquerda h2 { margin: 0; color: #fff; font-size: 20px; font-weight: bold; display: flex; align-items: center; }
 .topo-direita { display: flex; align-items: center; gap: 15px; position: relative; }
 .user-display { color: #fff; font-weight: bold; font-size: 14px; letter-spacing: 0.5px; }
 
@@ -76,30 +104,20 @@ body {
     gap: 10px;
     transition: 0.15s;
 }
-.dropdown-menu-box button:hover {
-    background-color: #222;
-    color: #007bff;
-}
-.dropdown-menu-box button.active {
-    background-color: #1a1a1a;
-    color: #007bff;
-    font-weight: bold;
-}
-.dropdown-divisor {
-    border: 0;
-    height: 1px;
-    background-color: #2d2d2d; 
-    margin: 4px 0;
-}
+.dropdown-menu-box button:hover { background-color: #222; color: #007bff; }
+.dropdown-menu-box button.active { background-color: #1a1a1a; color: #007bff; font-weight: bold; }
+.dropdown-divisor { border: 0; height: 1px; background-color: #2d2d2d; margin: 4px 0; }
 .btn-dropdown-sair { color: #ef4444 !important; } 
 .btn-dropdown-sair:hover { background-color: rgba(239, 68, 68, 0.1) !important; }
 
-/* 📺 CONTEÚDO PRINCIPAL (FUNDO PRETO LISO SEM TRAVAMENTOS) */
+/* 📺 CONTEÚDO PRINCIPAL (PRETO LISO) */
 .conteudo-principal-full { flex: 1; padding: 35px 20px; box-sizing: border-box; background-color: #0c0c0c; display: flex; justify-content: center; overflow-y: auto; }
 .container-interno { width: 100%; max-width: 900px; }
 
 .card-apresentacao { background: #1a1a1a; border-radius: 12px; padding: 20px; margin-bottom: 25px; border: 1px solid #2d2d2d; display: flex; align-items: center; gap: 20px; }
-.banner-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; border: 1px solid #007bff; }
+
+/* TRAVA DO BANNER DE ENTRADA */
+.banner-img { width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 1px solid #007bff; }
 .apresentacao-texto h3 { margin: 0 0 5px 0; color: #fff; font-size: 18px; }
 .apresentacao-texto p { margin: 0; color: #888; font-size: 14px; }
 
@@ -110,7 +128,6 @@ body {
 .card-resumo-item.destaque-azul { border-color: #007bff; background-color: #16222f; }
 .card-resumo-item-hora { background-color: #1a1a1a; padding: 20px; border-radius: 12px; border: 1px solid #2d2d2d; position: relative; width: 100%; box-sizing: border-box; }
 
-/* Mudado de Vermelho para Azul Neon nos pequenos ícones quadrados */
 .card-icon, .card-icon-hora { font-size: 14px; background: #007bff; color: white; padding: 6px; border-radius: 6px; width: 16px; height: 16px; display: flex; justify-content: center; align-items: center; margin-bottom: 15px; box-shadow: 0 0 10px rgba(0, 123, 255, 0.4); }
 .card-resumo-item p, .card-resumo-item-hora p { margin: 0 0 8px 0; font-size: 11px; color: #888; font-weight: bold; letter-spacing: 0.5px; }
 .card-resumo-item h3, .card-resumo-item-hora h3 { margin: 0; font-size: 26px; color: #fff; font-weight: bold; }
@@ -122,15 +139,13 @@ body {
 .input-container-icon { display: flex; align-items: center; background: #0c0c0c; border: 1px solid #2d2d2d; border-radius: 6px; padding-left: 12px; margin-bottom: 10px; }
 .cifrao { color: #007bff; font-weight: bold; font-size: 14px; margin-right: 8px; }
 .input-container-icon input { flex: 1; padding: 12px; background: transparent; border: none; color: white; font-size: 14px; outline: none; }
-
 .btn-adicionar-principal { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); }
 .btn-adicionar-principal:hover { background-color: #0056b3; }
 
-/* 🔄 BOTÕES EXTRAS DE AÇÕES EM AZUL SIMPLES */
+/* 🔄 BOTÕES EXTRAS DE AÇÕES EM AZUL */
 .secao-acoes-extras { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
 .secao-acoes-extras h4 { margin: 0 0 5px 0; color: #aaa; font-size: 14px; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px; }
 .btn-extra-zerar { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); }
-.btn-extra-zerar:hover { background-color: #0056b3; }
 
 /* 📊 DASHBOARD */
 .grid-dias { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px; }
