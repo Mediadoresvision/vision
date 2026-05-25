@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 
-    // 🔒 Fecha o menu de três pontinhos se clicar em qualquer outro lugar da tela
     window.addEventListener('click', (e) => {
         if (!e.target.matches('.btn-dropdown-gatilho')) {
             const dropdown = document.getElementById('dropdown-menu');
@@ -33,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-// 🔀 FUNÇÃO QUE ABRE E FECHA OS TRÊS PONTINHOS (IGUAL À FOTO)
 function alternarDropdown() {
     const dropdown = document.getElementById('dropdown-menu');
     if (dropdown) {
@@ -41,7 +39,6 @@ function alternarDropdown() {
     }
 }
 
-// 📝 AÇÃO DE ABRIR O HISTÓRICO/MODAL DIRETO PELO NOVO MENU
 function abrirModalPorMenu() {
     alternarDropdown();
     navegarPara('tela-dashboard');
@@ -106,10 +103,8 @@ function navegarPara(idTela) {
     const telaEl = document.getElementById(idTela);
     if(telaEl) telaEl.style.display = 'block';
     
-    // Atualiza a marcação ativa dentro da caixinha flutuante
     document.querySelectorAll('.dropdown-menu-box button').forEach(btn => btn.classList.remove('active'));
     
-    // Fecha o menu após clicar
     const dropdown = document.getElementById('dropdown-menu');
     if (dropdown) dropdown.style.display = 'none';
     
@@ -194,31 +189,38 @@ function adicionarLucroRapido() {
     const horaFormatada = new Date().toLocaleTimeString('pt-BR');
     historico.unshift({ valor: valor, hora: horaFormatada });
 
-    salvarEAtualizar();
+    varEReceber();
     input.value = '';
 }
 
-function abrirModal(nomeDia, indice) {
-    diaAtualSelecionado = indice;
-    document.getElementById('modalTitulo').innerText = `Editar: ${nomeDia}`;
-    document.getElementById('modalInput').value = lucros[indice] || '';
-    document.getElementById('modal').style.display = 'flex';
-}
-
-function fecharModal() { document.getElementById('modal').style.display = 'none'; }
-
-function salvarLucroModal() {
-    const valor = parseFloat(document.getElementById('modalInput').value) || 0;
-    lucros[diaAtualSelecionado] = valor;
-    salvarEAtualizar();
-    fecharModal();
-}
-
-function salvarEAtualizar() {
+function varEReceber() {
     localStorage.setItem('lucrosSemanais', JSON.stringify(lucros));
     localStorage.setItem('lucroDiarioHoje', lucroDiarioHoje);
     localStorage.setItem('historicoLucros', JSON.stringify(historico));
     atualizarInterface();
+}
+
+function abrirModal(nomeDia, indice) {
+    diaAtualSelecionado = indice;
+    const modalTitulo = document.getElementById('modalTitulo');
+    const modalInput = document.getElementById('modalInput');
+    const modal = document.getElementById('modal');
+    
+    if(modalTitulo) modalTitulo.innerText = `Editar: ${nomeDia}`;
+    if(modalInput) modalInput.value = lucros[indice] || '';
+    if(modal) modal.style.display = 'flex';
+}
+
+function fecharModal() { 
+    const modal = document.getElementById('modal');
+    if(modal) modal.style.display = 'none'; 
+}
+
+function salvarLucroModal() {
+    const valor = parseFloat(document.getElementById('modalInput').value) || 0;
+    lucros[diaAtualSelecionado] = valor;
+    varEReceber();
+    fecharModal();
 }
 
 function atualizarInterface() {
@@ -234,13 +236,17 @@ function atualizarInterface() {
 
     const media = total / 7;
 
-    if(document.getElementById('lucroDiario')) {
-        document.getElementById('lucroDiario').innerText = `R$ ${lucroDiarioHoje.toFixed(2).replace('.', ',')}`;
-        document.getElementById('lucroSemanalPrincipal').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        document.getElementById('totalSemana').innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
-        document.getElementById('mediaDiaria').innerText = `R$ ${media.toFixed(2).replace('.', ',')}`;
-        document.getElementById('diasLucro').innerText = `${diasComLucro}/7`;
-    }
+    const lucroDiarioEl = document.getElementById('lucroDiario');
+    const lucroSemanalEl = document.getElementById('lucroSemanalPrincipal');
+    const totalSemanaEl = document.getElementById('totalSemana');
+    const mediaDiariaEl = document.getElementById('mediaDiaria');
+    const diasLucroEl = document.getElementById('diasLucro');
+
+    if(lucroDiarioEl) lucroDiarioEl.innerText = `R$ ${lucroDiarioHoje.toFixed(2).replace('.', ',')}`;
+    if(lucroSemanalEl) lucroSemanalEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    if(totalSemanaEl) totalSemanaEl.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
+    if(mediaDiariaEl) mediaDiariaEl.innerText = `R$ ${media.toFixed(2).replace('.', ',')}`;
+    if(diasLucroEl) diasLucroEl.innerText = `${diasComLucro}/7`;
 
     const listaHtml = document.getElementById('historicoLista');
     if (listaHtml) {
@@ -267,6 +273,6 @@ function zerarDados() {
         lucros = [0, 0, 0, 0, 0, 0, 0];
         lucroDiarioHoje = 0;
         historico = [];
-        salvarEAtualizar();
+        varEReceber();
     }
 }
