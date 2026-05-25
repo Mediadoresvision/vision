@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarInterface();
     }
     
-    // Roda o relógio de forma segura após carregar a interface
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 
@@ -122,7 +121,6 @@ function atualizarRelogio() {
     const elHora = document.getElementById('horaAtual');
     const elTempo = document.getElementById('tempoRestante');
 
-    // Só atualiza os elementos se eles realmente existirem abertos na tela atual
     if(elDia) elDia.innerText = dias[agora.getDay()];
     if(elData) elData.innerText = agora.toLocaleDateString('pt-BR');
     if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR');
@@ -267,10 +265,14 @@ function atualizarInterface() {
         }
     }
 
-    if (meuGrafico && meuGrafico.data && meuGrafico.data.datasets[0]) {
+    if (meuGrafico && meuGrafico.data && meuGrafico.data.datasets) {
         meuGrafico.data.datasets[0].data = lucros;
         meuGrafico.update();
     }
 }
 
 function zerarDados() {
+    if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
+        lucros = [0, 0, 0, 0, 0, 0, 0];
+        lucroDiarioHoje = 0;
+        historico = [];
