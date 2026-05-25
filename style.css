@@ -31,7 +31,7 @@ body {
 .user-tag { background: #242424; padding: 8px; border-radius: 6px; text-align: center; font-size: 13px; font-weight: bold; color: #007bff; }
 .btn-sair { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 8px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-/* 📺 CONTEÚDO PRINCIPAL COM TUBARÃO SUAVE ATRÁS */
+/* 📺 CONTEÚDO PRINCIPAL COM TUBARÃO SUAVE ATRÁS EM MARCA D'ÁGUA */
 .conteudo-principal { 
     flex: 1; 
     padding: 35px; 
