@@ -13,13 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
         inicializarGrafico();
         atualizarInterface();
     }
-    // O relógio só roda se o usuário estiver logado para não travar a tela de login
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 });
 
 function mudarTabLogin(modo) {
-    modoAutenticacao = mode;
+    modoAutenticacao = modo;
     document.getElementById('btn-tab-login').classList.toggle('active', modo === 'login');
     document.getElementById('btn-tab-cadastro').classList.toggle('active', modo === 'cadastro');
     document.getElementById('btn-entrar').innerText = modo === 'login' ? 'Entrar no Sistema' : 'Criar Conta e Entrar';
@@ -74,7 +73,6 @@ function atualizarRelogio() {
     const agora = new Date();
     const dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
     
-    // 🔥 CORREÇÃO: Só atualiza os textos se eles realmente existirem na tela para evitar o bug de tremer
     const elDia = document.getElementById('diaDaSemana');
     const elData = document.getElementById('dataAtual');
     const elHora = document.getElementById('horaAtual');
