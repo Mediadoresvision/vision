@@ -12,6 +12,7 @@
     <!-- 🔐 TELA DE LOGIN -->
     <div id="tela-login" class="login-container">
         <div class="login-box">
+            <img id="login-logo" src="https://freepik.com" alt="Logo">
             <h2>Mediadores Vision</h2>
             <p>Faça login para acessar o painel</p>
             <div class="tab-botoes">
@@ -29,16 +30,15 @@
     <!-- 🌐 SISTEMA PRINCIPAL -->
     <div id="sistema-principal" class="layout-sistema" style="display: none;">
         
-        <!-- 🔝 BARRA SUPERIOR COM MENU FLUTUANTE (IGUAL À FOTO) -->
+        <!-- 🔝 BARRA SUPERIOR COM MENU FLUTUANTE -->
         <header class="barra-topo">
             <div class="topo-esquerda">
                 <h2>Mediadores Vision</h2>
             </div>
             <div class="topo-direita">
-                <span class="user-display" id="nome-usuario-logado">ADMDANIEL</span>
+                <span class="user-display" id="nome-usuario-logado">MINECRAFT</span>
                 <div class="dropdown-container">
                     <button class="btn-dropdown-gatilho" onclick="alternarDropdown()">⋮</button>
-                    <!-- 📦 CAIXINHA FLUTUANTE DE LINKS -->
                     <div id="dropdown-menu" class="dropdown-menu-box">
                         <button onclick="navegarPara('tela-inicio')" class="active">🏠 Início</button>
                         <button onclick="navegarPara('tela-dashboard')">📊 Dashboard</button>
@@ -51,13 +51,16 @@
             </div>
         </header>
 
-        <!-- 📺 ÁREA CENTRAL DAS TELAS (SEM MENU LATERAL COLOCOU MAIS ESPAÇO) -->
+        <!-- 📺 ÁREA CENTRAL DAS TELAS -->
         <main class="conteudo-principal-full">
             
             <!-- 🏠 1. TELA INÍCIO -->
             <section id="tela-inicio" class="aba-conteudo">
                 <div class="container-interno">
+                    
+                    <!-- 🖼️ BANNER DO TUBARÃO REATIVADO -->
                     <div class="card-apresentacao">
+                        <img src="https://freepik.com" class="banner-img" alt="Banner">
                         <div class="apresentacao-texto">
                             <h3>Painel de Controle</h3>
                             <p>Gerencie seus lucros com profissionalismo</p>
@@ -155,7 +158,6 @@
         </main>
     </div>
 
-    <!-- Janela de Edição -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <h3 id="modalTitulo">Editar Lucro</h3>
