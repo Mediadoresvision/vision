@@ -3,7 +3,6 @@ let lucroDiarioHoje = parseFloat(localStorage.getItem('lucroDiarioHoje')) || 0;
 let historico = JSON.parse(localStorage.getItem('historicoLucros')) || [];
 let modoAutenticacao = 'login';
 let meuGrafico;
-let diaAtualSelecionado = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem('usuarioLogado')) {
@@ -19,9 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
         atualizarInterface();
     }
     
-    // Atualiza o relógio a cada 30 segundos (muito mais leve para evitar lag)
     atualizarRelogio();
-    setInterval(atualizarRelogio, 30000);
+    setInterval(atualizarRelogio, 1000);
 
     window.addEventListener('click', (e) => {
         if (!e.target.matches('.btn-dropdown-gatilho')) {
@@ -109,6 +107,7 @@ function navegarPara(idTela) {
     if (dropdown) dropdown.style.display = 'none';
     
     if (idTela === 'tela-dashboard') {
+        // Inicializa o gráfico apenas sob demanda instantânea para carregar mais rápido
         setTimeout(inicializarGrafico, 50);
     }
 }
@@ -124,19 +123,18 @@ function atualizarRelogio() {
 
     if(elDia) elDia.innerText = dias[agora.getDay()];
     if(elData) elData.innerText = agora.toLocaleDateString('pt-BR');
-    
-    // Mostra apenas Hora e Minuto (Ex: 19:23)
-    if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    if(elHora) elHora.innerText = agora.toLocaleTimeString('pt-BR');
     
     if(elTempo) {
-        const totalMinutosNoDia = 1440;
-        const minutosPassados = (agora.getHours() * 60) + agora.getMinutes();
-        const minutosRestantes = totalMinutosNoDia - minutosPassados;
+        const totalSegundosNoDia = 24 * 60 * 60;
+        const segundosPassados = (agora.getHours() * 3600) + (agora.getMinutes() * 60) + agora.getSeconds();
+        const segundosRestantes = totalSegundosNoDia - segundosPassados;
         
-        const hrs = Math.floor(minutosRestantes / 60);
-        const mins = minutosRestantes % 60;
+        const hrs = Math.floor(segundosRestantes / 3600);
+        const mins = Math.floor((segundosRestantes % 3600) / 60);
+        const segs = segundosRestantes % 60;
         
-        elTempo.innerText = `Faltam ${hrs}h ${mins}min para encerrar o dia`;
+        elTempo.innerText = `Faltam ${hrs}h ${mins}min ${segs}s para encerrar o dia`;
     }
 }
 
@@ -173,7 +171,6 @@ function inicializarGrafico() {
 
 function adicionarLucroRapido() {
     const input = document.getElementById('valorInput');
-    if (!input) return;
     const valor = parseFloat(input.value);
 
     if (isNaN(valor) || valor <= 0) {
@@ -189,7 +186,7 @@ function adicionarLucroRapido() {
 
     lucros[layoutIndex] += valor;
 
-    const horaFormatada = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    const horaFormatada = new Date().toLocaleTimeString('pt-BR');
     historico.unshift({ valor: valor, hora: horaFormatada });
 
     varEReceber();
@@ -220,9 +217,7 @@ function fecharModal() {
 }
 
 function salvarLucroModal() {
-    const input = document.getElementById('modalInput');
-    if (!input) return;
-    const valor = parseFloat(input.value) || 0;
+    const valor = parseFloat(document.getElementById('modalInput').value) || 0;
     lucros[diaAtualSelecionado] = valor;
     varEReceber();
     fecharModal();
@@ -267,7 +262,7 @@ function atualizarInterface() {
         }
     }
 
-    if (meuGrafico && meuGrafico.data && meuGrafico.data.datasets) {
+    if (meuGrafico) {
         meuGrafico.data.datasets.data = lucros;
         meuGrafico.update();
     }
@@ -275,3 +270,9 @@ function atualizarInterface() {
 
 function zerarDados() {
     if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
+        lucros = [0, 0, 0, 0, 0, 0, 0];
+        lucroDiarioHoje = 0;
+        historico = [];
+        varEReceber();
+    }
+}
