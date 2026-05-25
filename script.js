@@ -7,23 +7,31 @@ let meuGrafico;
 document.addEventListener("DOMContentLoaded", () => {
     if (localStorage.getItem('usuarioLogado')) {
         const user = localStorage.getItem('usuarioLogado');
-        document.getElementById('tela-login').style.display = 'none';
-        document.getElementById('sistema-principal').style.display = 'flex';
-        document.getElementById('nome-usuario-logado').innerText = user.toUpperCase();
+        const loginEl = document.getElementById('tela-login');
+        const principalEl = document.getElementById('sistema-principal');
+        const userEl = document.getElementById('nome-usuario-logado');
+        
+        if(loginEl) loginEl.style.display = 'none';
+        if(principalEl) principalEl.style.display = 'flex';
+        if(userEl) userEl.innerText = user.toUpperCase();
+        
         inicializarGrafico();
         atualizarInterface();
     }
     
-    // Inicializa o relógio na hora e atualiza firme a cada segundo
     atualizarRelogio();
     setInterval(atualizarRelogio, 1000);
 });
 
 function mudarTabLogin(modo) {
     modoAutenticacao = modo;
-    document.getElementById('btn-tab-login').classList.toggle('active', modo === 'login');
-    document.getElementById('btn-tab-cadastro').classList.toggle('active', modo === 'cadastro');
-    document.getElementById('btn-entrar').innerText = modo === 'login' ? 'Entrar no Sistema' : 'Criar Conta e Entrar';
+    const tabLogin = document.getElementById('btn-tab-login');
+    const tabCadastro = document.getElementById('btn-tab-cadastro');
+    const btnEntrar = document.getElementById('btn-entrar');
+    
+    if(tabLogin) tabLogin.classList.toggle('active', modo === 'login');
+    if(tabCadastro) tabCadastro.classList.toggle('active', modo === 'cadastro');
+    if(btnEntrar) btnEntrar.innerText = modo === 'login' ? 'Entrar no Sistema' : 'Criar Conta e Entrar';
 }
 
 function autenticar(event) {
@@ -51,9 +59,14 @@ function autenticar(event) {
     }
 
     localStorage.setItem('usuarioLogado', user);
-    document.getElementById('tela-login').style.display = 'none';
-    document.getElementById('sistema-principal').style.display = 'flex';
-    document.getElementById('nome-usuario-logado').innerText = user.toUpperCase();
+    
+    const loginEl = document.getElementById('tela-login');
+    const principalEl = document.getElementById('sistema-principal');
+    const userEl = document.getElementById('nome-usuario-logado');
+    
+    if(loginEl) loginEl.style.display = 'none';
+    if(principalEl) principalEl.style.display = 'flex';
+    if(userEl) userEl.innerText = user.toUpperCase();
     
     inicializarGrafico();
     atualizarInterface();
@@ -66,9 +79,10 @@ function deslogar() {
 
 function navegarPara(idTela) {
     document.querySelectorAll('.aba-conteudo').forEach(tela => tela.style.display = 'none');
-    document.getElementById(idTela).style.display = 'block';
-    document.querySelectorAll('.menu-items button').forEach(btn => btn.classList.remove('active'));
+    const telaEl = document.getElementById(idTela);
+    if(telaEl) telaEl.style.display = 'block';
     
+    document.querySelectorAll('.menu-items button').forEach(btn => btn.classList.remove('active'));
     const navBtn = document.getElementById('nav-' + idTela);
     if (navBtn) navBtn.classList.add('active');
     
