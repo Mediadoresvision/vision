@@ -139,6 +139,7 @@ function atualizarRelogio() {
     }
 }
 
+// 📊 GRÁFICO ALINHADO COM A SEMANA CRONOLÓGICA (SEG A DOM)
 function inicializarGrafico() {
     const canvas = document.getElementById('graficoLucros');
     if (!canvas) return;
@@ -149,7 +150,7 @@ function inicializarGrafico() {
     meuGrafico = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom', 'Seg'],
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
             datasets: [{
                 data: lucros,
                 backgroundColor: '#007bff',
@@ -180,9 +181,10 @@ function adicionarLucroRapido() {
 
     lucroDiarioHoje += valor;
     
+    // Alinhamento matemático cronológico: Segunda=0, Terça=1, ..., Domingo=6
     const diaDaSemanaIndex = new Date().getDay(); 
-    let layoutIndex = diaDaSemanaIndex - 2;
-    if (layoutIndex < 0) layoutIndex += 7;
+    let layoutIndex = diaDaSemanaIndex - 1; 
+    if (layoutIndex < 0) layoutIndex = 6; // Se for domingo (0), vira índice 6
 
     lucros[layoutIndex] += valor;
 
@@ -263,7 +265,7 @@ function atualizarInterface() {
     }
 
     if (meuGrafico) {
-        meuGrafico.data.datasets.data = lucros;
+        meuGrafico.data.datasets[0].data = lucros;
         meuGrafico.update();
     }
 }
@@ -271,8 +273,3 @@ function atualizarInterface() {
 function zerarDados() {
     if (confirm("Tem certeza de que deseja apagar o histórico e todos os lucros armazenados?")) {
         lucros = [0, 0, 0, 0, 0, 0, 0];
-        lucroDiarioHoje = 0;
-        historico = [];
-        varEReceber();
-    }
-}
