@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if(principalEl) principalEl.style.display = 'flex';
         if(userEl) userEl.innerText = user.toUpperCase();
         
-        inicializarGrafico();
         atualizarInterface();
     }
     
@@ -89,7 +88,6 @@ function autenticar(event) {
     if(principalEl) principalEl.style.display = 'flex';
     if(userEl) userEl.innerText = user.toUpperCase();
     
-    inicializarGrafico();
     atualizarInterface();
 }
 
@@ -109,7 +107,8 @@ function navegarPara(idTela) {
     if (dropdown) dropdown.style.display = 'none';
     
     if (idTela === 'tela-dashboard') {
-        setTimeout(inicializarGrafico, 100);
+        // Inicializa o gráfico apenas sob demanda instantânea para carregar mais rápido
+        setTimeout(inicializarGrafico, 50);
     }
 }
 
@@ -149,7 +148,7 @@ function inicializarGrafico() {
     meuGrafico = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom', 'Seg'],
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
             datasets: [{
                 data: lucros,
                 backgroundColor: '#007bff',
@@ -160,6 +159,7 @@ function inicializarGrafico() {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: { beginAtZero: true, grid: { color: '#242424' }, ticks: { color: '#aaa' } },
                 x: { grid: { display: false }, ticks: { color: '#aaa' } }
@@ -181,8 +181,8 @@ function adicionarLucroRapido() {
     lucroDiarioHoje += valor;
     
     const diaDaSemanaIndex = new Date().getDay(); 
-    let layoutIndex = diaDaSemanaIndex - 2;
-    if (layoutIndex < 0) layoutIndex += 7;
+    let layoutIndex = diaDaSemanaIndex - 1; 
+    if (layoutIndex < 0) layoutIndex = 6; 
 
     lucros[layoutIndex] += valor;
 
