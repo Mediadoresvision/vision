@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mediadores Vision - Sistema</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <!-- 🔐 TELA DE LOGIN -->
+    <div id="tela-login" class="login-container">
+        <div class="login-box">
+            <img id="login-logo" src="./logo.jpg" alt="Logo" onerror="this.src='./logo.png'">
+            <h2>Mediadores Vision</h2>
+            <p>Faça login para acessar o painel</p>
+            
+            <div class="tab-botoes">
+                <button id="btn-tab-login" class="active" onclick="mudarTabLogin('login')">Login</button>
+                <button id="btn-tab-cadastro" onclick="mudarTabLogin('cadastro')">Cadastrar</button>
+            </div>
+
+            <form id="form-autenticacao" onsubmit="autenticar(event)">
+                <input type="text" id="usuario" placeholder="Usuário" required>
+                <input type="password" id="senha" placeholder="Senha" required>
+                <button type="submit" id="btn-entrar">Entrar no Sistema</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 🌐 SISTEMA PRINCIPAL -->
+    <div id="sistema-principal" class="layout-sistema" style="display: none;">
+        
+        <!-- 🧭 MENU LATERAL -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="./logo.jpg" class="app-logo" alt="Logo" onerror="this.src='./logo.png'">
+                <h3>Vision</h3>
+            </div>
+            <nav class="menu-items">
+                <button onclick="navegarPara('tela-inicio')" id="nav-tela-inicio" class="active">🏠 Início</button>
+                <button onclick="navegarPara('tela-dashboard')" id="nav-tela-dashboard">📊 Dashboard</button>
+                <button onclick="navegarPara('tela-config')" id="nav-tela-config">⚙️ Configurações</button>
+            </nav>
+            <div class="sidebar-footer">
+                <span class="user-tag" id="nome-usuario-logado">ADMDANIEL</span>
+                <button class="btn-sair" onclick="deslogar()">❌ Sair</button>
+            </div>
+        </aside>
+
+        <!-- 📺 ÁREA DAS TELAS -->
+        <main class="conteudo-principal">
+            
+            <!-- 🏠 1. TELA INÍCIO (LAYOUT COMPACTO E ELEGANTE IGUAL À FOTO) -->
+            <section id="tela-inicio" class="aba-conteudo">
+                <div class="container-interno">
+                    <header class="topo-sistema">
+                        <img src="./logo.jpg" class="header-logo" alt="Logo" onerror="this.src='./logo.png'">
+                        <h2>Mediadores Vision</h2>
+                    </header>
+                    
+                    <div class="card-apresentacao">
+                        <img src="./banner.jpg" class="banner-img" alt="Banner" onerror="this.src='./banner.png'">
+                        <div class="apresentacao-texto">
+                            <h3>Painel de Controle</h3>
+                            <p>Gerencie seus lucros com profissionalismo</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-resumo-vertical">
+                        <div class="card-resumo-item">
+                            <div class="card-icon blue-icon">📅</div>
+                            <p>LUCRO DIÁRIO</p>
+                            <h3 id="lucroDiario">R$ 0,00</h3>
+                        </div>
+                        <div class="card-resumo-item destaque-azul">
+                            <div class="card-icon blue-icon">📈</div>
+                            <p>LUCRO SEMANAL</p>
+                            <h3 id="lucroSemanalPrincipal">R$ 0,00</h3>
+                        </div>
+                        <div class="card-resumo-item">
+                            <div class="card-icon blue-icon">📅</div>
+                            <p>DIA DA SEMANA</p>
+                            <h3 id="diaDaSemana">---</h3>
+                            <span id="dataAtual" class="subtext-data">--/--/----</span>
+                        </div>
+                        <div class="card-resumo-item">
+                            <div class="card-icon blue-icon">🕒</div>
+                            <p>HORA ATUAL</p>
+                            <h3 id="horaAtual">00:00:00</h3>
+                            <span id="tempoRestante" class="subtext-data">Calculando...</span>
+                        </div>
+                    </div>
+
+                    <div class="secao-acao-input">
+                        <h4>➡️ Adicionar Lucro</h4>
+                        <div class="input-container-icon">
+                            <span class="cifrao">$</span>
+                            <input type="number" id="valorInput" placeholder="Valor do lucro (ex: 100.50)" step="0.01">
+                        </div>
+                        <button class="btn-adicionar-principal" onclick="adicionarLucroRapido()">+ Adicionar Lucro</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📊 2. TELA DASHBOARD -->
+            <section id="tela-dashboard" class="aba-conteudo" style="display: none;">
+                <div class="container-interno">
+                    <header class="topo-pagina">
+                        <h2>Dashboard Semanal</h2>
+                        <p>Visualização detalhada por dia</p>
+                    </header>
+
+                    <div class="grid-dias">
+                        <div class="card-dia" onclick="abrirModal('Terça-feira', 0)">
+                            <h4>TERÇA-FEIRA</h4>
+                            <p id="v-0">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Quarta-feira', 1)">
+                            <h4>QUARTA-FEIRA</h4>
+                            <p id="v-1">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Quinta-feira', 2)">
+                            <h4>QUINTA-FEIRA</h4>
+                            <p id="v-2">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Sexta-feira', 3)">
+                            <h4>SEXTA-FEIRA</h4>
+                            <p id="v-3">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Sábado', 4)">
+                            <h4>SÁBADO</h4>
+                            <p id="v-4">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Domingo', 5)">
+                            <h4>DOMINGO</h4>
+                            <p id="v-5">R$ 0,00</p>
+                        </div>
+                        <div class="card-dia" onclick="abrirModal('Segunda-feira', 6)">
+                            <h4>SEGUNDA-FEIRA</h4>
+                            <p id="v-6">R$ 0,00</p>
+                        </div>
+                    </div>
+
+                    <div class="container-grafico">
+                        <h4>📈 Gráfico de Performance</h4>
+                        <canvas id="graficoLucros"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ⚙️ 3. TELA CONFIGURAÇÕES -->
+            <section id="tela-config" class="aba-conteudo" style="display: none;">
+                <div class="container-interno">
+                    <header class="topo-pagina">
+                        <h2>Configurações do Sistema</h2>
+                    </header>
+
+                    <div class="secao-acao-input">
+                        <h3>🕒 Estatísticas Gerais</h3>
+                        <div class="grid-estatisticas">
+                            <div class="card-estatistica">
+                                <span>MÉDIA DIÁRIA</span>
+                                <h3 id="mediaDiaria">R$ 0,00</h3>
+                            </div>
+                            <div class="card-estatistica">
+                                <span>TOTAL DA SEMANA</span>
+                                <h3 id="totalSemana">R$ 0,00</h3>
+                            </div>
+                            <div class="card-estatistica">
+                                <span>DIAS ATIVOS</span>
+                                <h3 id="diasLucro">0/7</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="secao-acao-input">
+                        <h3>📋 Histórico de Lançamentos</h3>
+                        <div class="historico-lista" id="historicoLista">
+                            <p style="color: #64748b; font-size: 14px;">Nenhum lucro adicionado ainda.</p>
+                        </div>
+                    </div>
+
+                    <div class="secao-acao-input">
+                        <h3>⚙️ Ações do Sistema</h3>
+                        <button class="btn-acao-secundario" onclick="zerarDados()">🔄 Zerar Semana</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para editar dias -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitulo">Editar Lucro</h3>
+            <input type="number" id="modalInput" placeholder="Valor em R$" step="0.01">
+            <div class="modal-botoes">
+                <button onclick="salvarLucroModal()">Salvar</button>
+                <button class="btn-fechar" onclick="fecharModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
