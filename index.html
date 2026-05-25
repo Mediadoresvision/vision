@@ -9,10 +9,9 @@
 </head>
 <body>
 
-    <!-- 🔐 TELA DE LOGIN CORRIGIDA COM TRAVA INDEPENDENTE -->
+    <!-- 🔐 TELA DE LOGIN -->
     <div id="tela-login" class="login-container">
         <div class="login-box">
-            <!-- 🔥 Trava definitiva de tamanho direto na tag para não estourar -->
             <img id="login-logo" src="./logo.jpeg" alt="Logo" style="width: 100px !important; height: 100px !important; border-radius: 12px; margin-bottom: 15px; border: 2px solid #007bff; object-fit: cover;">
             <h2>Mediadores Vision</h2>
             <p>Faça login para acessar o painel</p>
@@ -32,9 +31,9 @@
     <div id="sistema-principal" class="layout-sistema" style="display: none;">
         
         <header class="barra-topo">
-            <div class="topo-esquerda">
+            <div class="topo-whitespace">
                 <img src="./logo.jpeg" class="header-logo" style="width:35px !important; height:35px !important; border-radius:50%; vertical-align:middle; margin-right:10px; border:1px solid #007bff; object-fit: cover;" alt="Logo">
-                <h2 style="display:inline-block; vertical-align:middle;">Mediadores Vision</h2>
+                <h2 style="display:inline-block; vertical-align:middle; margin:0;">Mediadores Vision</h2>
             </div>
             <div class="topo-direita">
                 <span class="user-display" id="nome-usuario-logado">MINECRAFT</span>
@@ -53,6 +52,7 @@
         </header>
 
         <main class="conteudo-principal-full">
+            <!-- 🏠 1. TELA INÍCIO -->
             <section id="tela-inicio" class="aba-conteudo">
                 <div class="container-interno">
                     
@@ -64,7 +64,6 @@
                         </div>
                     </div>
 
-                    <!-- 3 Colunas Paralelas Lado a Lado -->
                     <div class="grid-resumo-vertical">
                         <div class="card-resumo-item">
                             <div class="card-icon">📅</div>
@@ -109,19 +108,20 @@
                 </div>
             </section>
 
+            <!-- 📊 2. TELA DASHBOARD (ORDEM CORRIGIDA DA SEMANA) -->
             <section id="tela-dashboard" class="aba-conteudo" style="display: none;">
                 <div class="container-interno">
                     <header class="topo-pagina">
                         <h2>Dashboard Semanal</h2>
                     </header>
                     <div class="grid-dias">
-                        <div class="card-dia" onclick="abrirModal('Terça-feira', 0)"><h4>TERÇA-FEIRA</h4><p id="v-0">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Quarta-feira', 1)"><h4>QUARTA-FEIRA</h4><p id="v-1">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Quinta-feira', 2)"><h4>QUINTA-FEIRA</h4><p id="v-2">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Sexta-feira', 3)"><h4>SEXTA-FEIRA</h4><p id="v-3">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Sábado', 4)"><h4>SÁBADO</h4><p id="v-4">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Domingo', 5)"><h4>DOMINGO</h4><p id="v-5">R$ 0,00</p></div>
-                        <div class="card-dia" onclick="abrirModal('Segunda-feira', 6)"><h4>SEGUNDA-FEIRA</h4><p id="v-6">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Segunda-feira', 0)"><h4>SEGUNDA-FEIRA</h4><p id="v-0">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Terça-feira', 1)"><h4>TERÇA-FEIRA</h4><p id="v-1">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Quarta-feira', 2)"><h4>QUARTA-FEIRA</h4><p id="v-2">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Quinta-feira', 3)"><h4>QUINTA-FEIRA</h4><p id="v-3">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Sexta-feira', 4)"><h4>SEXTA-FEIRA</h4><p id="v-4">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Sábado', 5)"><h4>SÁBADO</h4><p id="v-5">R$ 0,00</p></div>
+                        <div class="card-dia" onclick="abrirModal('Domingo', 6)"><h4>DOMINGO</h4><p id="v-6">R$ 0,00</p></div>
                     </div>
                     <div class="container-grafico">
                         <h4>📈 Gráfico de Performance</h4>
@@ -130,6 +130,7 @@
                 </div>
             </section>
 
+            <!-- ⚙️ 3. TELA CONFIGURAÇÕES -->
             <section id="tela-config" class="aba-conteudo" style="display: none;">
                 <div class="container-interno">
                     <header class="topo-pagina">
