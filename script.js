@@ -211,7 +211,7 @@ function abrirModal(nomeDia, indice) {
     if(modal) modal.style.display = 'flex';
 }
 
-function fecharModal() { 
+function fecharModal() {
     const modal = document.getElementById('modal');
     if(modal) modal.style.display = 'none'; 
 }
